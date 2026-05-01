@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>St. Peter's Basilica — Italian Renaissance Architecture</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: #f5f0e8;
+      color: #2e2a24;
+      margin: 0;
+    }
+    nav {
+      background-color: #3b2f20;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: #e8d5a3;
+      font-size: 1.1rem;
+      padding: 1rem 0;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 0.2rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      display: block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 1rem 0.85rem;
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #f5f0e8;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(to right, #3b2f20, #5a4230);
+      color: #f5f0e8;
+      padding: 2rem 2rem 1.8rem;
+    }
+    .back-link {
+      display: inline-block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    .back-link:hover { color: #f5f0e8; }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      margin: 0 0 0.3rem;
+      font-weight: 600;
+    }
+    .page-header .meta {
+      color: #c9a84c;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* PAGE WRAP */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+
+    /* ── TOP BLOCK: image left, overview text right ── */
+    .top-block {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Left: image slider */
+    .img-slider {
+      flex: 0 0 480px;
+      background: #2e2418;
+    }
+    .img-main {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      background: #3b2f20;
+    }
+    .img-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .img-slide.active { opacity: 1; }
+    .img-slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+    .img-arrows {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 0.7rem;
+      display: flex;
+      gap: 0.4rem;
+    }
+    .arrow-btn {
+      background: rgba(0,0,0,0.55);
+      color: #e8d5a3;
+      border: none;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .arrow-btn:hover { background: rgba(201,168,76,0.75); }
+    .img-counter {
+      position: absolute;
+      bottom: 0.7rem;
+      right: 0.8rem;
+      background: rgba(0,0,0,0.5);
+      color: #e8d5a3;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      letter-spacing: 0.06em;
+    }
+    .img-thumbs {
+      display: flex;
+      background: #2a1e14;
+      padding: 0.45rem 0.5rem;
+      gap: 0.4rem;
+      overflow-x: auto;
+    }
+    .thumb {
+      width: 68px;
+      height: 46px;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: 2px solid transparent;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .thumb img {
+      width: 68px;
+      height: 46px;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb.active { border-color: #c9a84c; }
+    .thumb:hover  { border-color: #8b6914; }
+
+    /* Right: overview text beside image */
+    .overview-aside {
+      flex: 1;
+      min-width: 0;
+    }
+    .info-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8b6914;
+      margin-bottom: 0.3rem;
+    }
+    .info-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #3b2f20;
+      margin: 0 0 0.6rem;
+    }
+    .content-rule {
+      width: 36px;
+      height: 2px;
+      background: #c9a84c;
+      margin-bottom: 0.9rem;
+    }
+    .info-text {
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: #4a3f30;
+      margin-bottom: 0.7rem;
+    }
+
+    /* ── BELOW: full-width sections ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #d6c9b0;
+      margin: 0.5rem 0 2rem;
+    }
+    .info-section {
+      margin-bottom: 2rem;
+    }
+
+    /* Key facts table */
+    .facts-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .facts-table tr { border-bottom: 1px solid #e0d5c0; }
+    .facts-table td { padding: 0.55rem 0.4rem; color: #4a3f30; }
+    .facts-table td:first-child { color: #8b6914; font-weight: 500; width: 36%; }
+
+    /* ── ARCHITECT SECTION: text left, portrait floated right ── */
+    .architect-section {
+      margin-bottom: 2rem;
+    }
+    .architect-inner {
+      background: #fff;
+      border-left: 3px solid #c9a84c;
+      padding: 1.1rem 1.3rem;
+      overflow: hidden; /* contain the float */
+    }
+    .architect-portrait {
+      float: right;
+      margin: 0 0 0.8rem 1.2rem;
+      width: 110px;
+      height: 130px;
+      overflow: hidden;
+      background: #d6c9b0;
+      border: 1px solid #c9b48a;
+      flex-shrink: 0;
+    }
+    .architect-portrait img {
+      width: 110px;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+    .architect-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #3b2f20;
+      margin: 0 0 0.4rem;
+    }
+    .architect-bio {
+      font-size: 0.9rem;
+      color: #5a4a35;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* Feature tags */
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+    .tag {
+      background: #ede4d0;
+      border: 1px solid #c9b48a;
+      color: #5a4230;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #3b2f20;
+      color: #8b7355;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.82rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .top-block { flex-direction: column; }
+      .img-slider { flex: none; width: 100%; }
+      .img-main { height: 220px; }
+      .img-slide img { height: 220px; }
+      .architect-portrait { width: 90px; height: 110px; }
+      .architect-portrait img { width: 90px; height: 110px; }
+      .nav-links a { font-size: 0.72rem; padding: 0.8rem 0.5rem; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Italian Renaissance Architecture</a>
+    <ul class="nav-links">
+      <li><a href="florence-cathedral.html">Florence Cathedral</a></li>
+      <li><a href="st-peters.html">St. Peter's Basilica</a></li>
+      <li><a href="villa-rotonda.html">Villa Rotonda</a></li>
+      <li><a href="palazzo-medici.html">Palazzo Medici Riccardi</a></li>
+      <li><a href="tempio-malatestiano.html">Tempio Malatestiano</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <a href="index.html" class="back-link">← Back to Overview</a>
+  <h1>St. Peter's Basilica</h1>
+  <div class="meta">Vatican City &nbsp;·&nbsp; Completed 1626</div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- TOP BLOCK: image left + overview right -->
+  <div class="top-block">
+
+    <div class="img-slider">
+      <div class="img-main">
+      <div class="img-slide active">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg/1280px-Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg" alt="St. Peter's Basilica exterior and piazza" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://arsartisticadventureofmankind.wordpress.com/wp-content/uploads/2021/07/14.-basilica-de-san-pedro.jpg" alt="Michelangelo's dome from outside" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://thumbs.dreamstime.com/b/st-peter-s-basilica-interior-view-72497548.jpg" alt="Interior nave and baldachin" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://cdn.siasat.com/wp-content/uploads/2026/02/Untitled-design-2026-02-16T220231.406.jpg" alt="Aerial view of the basilica" width="480" height="300">
+      </div>
+
+
+        <div class="img-arrows">
+          <button class="arrow-btn" onclick="changeSlide(-1)">&#8592;</button>
+          <button class="arrow-btn" onclick="changeSlide(1)">&#8594;</button>
+        </div>
+        <div class="img-counter" id="counter">1 / 4</div>
+      </div>
+      <div class="img-thumbs">
+      <div class="thumb active" onclick="goToSlide(0)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg/1280px-Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg" alt="St. Peter's Basilica exterior and piazza" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(1)"><img src="https://arsartisticadventureofmankind.wordpress.com/wp-content/uploads/2021/07/14.-basilica-de-san-pedro.jpg" alt="Michelangelo's dome from outside" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(2)"><img src="https://thumbs.dreamstime.com/b/st-peter-s-basilica-interior-view-72497548.jpg" alt="Interior nave and baldachin" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(3)"><img src="https://cdn.siasat.com/wp-content/uploads/2026/02/Untitled-design-2026-02-16T220231.406.jpg" alt="Aerial view of the basilica" width="68" height="46"></div>
+      </div>
+    </div>
+
+    <div class="overview-aside">
+      <div class="info-label">Overview</div>
+      <h2 class="info-heading">The World's Greatest Basilica</h2>
+      <div class="content-rule"></div>
+      <p class="info-text">St. Peter's Basilica in Vatican City is the largest church in the world and one of the holiest sites in Christendom. Construction of the current building began in 1506 under Pope Julius II, replacing an older 4th-century basilica. The project took over 120 years and involved the greatest architects of the Renaissance and Baroque periods.</p>
+      <p class="info-text">The building is crowned by Michelangelo's dome — 136 metres high and visible from across Rome. Bernini's colonnaded piazza, added in 1656–67, frames the approach with 284 columns in four rows. The basilica's interior nave stretches 218 metres and can hold 60,000 worshippers.</p>
+    </div>
+
+  </div><!-- end top-block -->
+
+  <hr class="divider">
+
+  <!-- KEY FACTS -->
+  <div class="info-section">
+    <div class="info-label">Key Facts</div>
+    <table class="facts-table w3-table">
+        <tr><td>Location</td><td>Vatican City, Rome</td></tr>
+        <tr><td>Construction</td><td>1506 – 1626 (120 years)</td></tr>
+        <tr><td>Dome Height</td><td>136.57 metres</td></tr>
+        <tr><td>Dome Diameter</td><td>42 metres</td></tr>
+        <tr><td>Nave Length</td><td>218 metres</td></tr>
+        <tr><td>Capacity</td><td>60,000 people</td></tr>
+        <tr><td>Architects</td><td>Bramante, Raphael, Michelangelo, Maderno</td></tr>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECT — text left, portrait floated right -->
+  <div class="architect-section">
+    <div class="info-label">Who Built It</div>
+    <div class="architect-inner">
+      <div class="architect-portrait">
+        <img src="https://sothebys-md.brightspotcdn.com/dims4/default/a89606c/2147483647/strip/true/crop/2000x2000+0+0/resize/2048x2048!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2Fc1%2F66%2F914debbd428bb2ec9cb899b51022%2Fn10078-36-web.jpg" alt="Portrait of Michelangelo Buonarroti (1475 – 1564)" width="110" height="130">
+      </div>
+      <div class="architect-name">Michelangelo Buonarroti (1475 – 1564)</div>
+      <p class="architect-bio">Michelangelo was appointed chief architect of St. Peter's in 1547 by Pope Paul III — at the age of 71. He accepted the commission without pay, considering it a service to God. He redesigned the crossing piers, simplified Bramante's complex plan, and designed the iconic dome. Though he died in 1564 before the dome was built, his wooden model was followed closely by Giacomo della Porta, who completed it in 1590.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECTURAL FEATURES -->
+  <div class="info-section">
+    <div class="info-label">Architectural Features</div>
+    <h2 class="info-heading">Renaissance Meets Baroque</h2>
+    <div class="content-rule"></div>
+    <p class="info-text">Michelangelo's dome is a double-shell structure inspired by Brunelleschi's Florence Cathedral dome. It sits on a tall drum pierced by large windows and is supported on four massive internal piers. The facade by Maderno features giant Corinthian pilasters. Inside, Bernini's bronze baldachin — 29 metres tall — marks the tomb of St. Peter directly beneath the dome.</p>
+    <div class="feature-tags"><span class="tag w3-tag">Double-Shell Dome</span><span class="tag w3-tag">Corinthian Pilasters</span><span class="tag w3-tag">Latin Cross Plan</span><span class="tag w3-tag">Colonnaded Piazza</span><span class="tag w3-tag">Giant Order</span><span class="tag w3-tag">Bronze Baldachin</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SIGNIFICANCE -->
+  <div class="info-section">
+    <div class="info-label">Significance</div>
+    <p class="info-text">St. Peter's is the culmination of Renaissance architecture — the point where the movement's ideals were pushed to their grandest expression. Michelangelo's dome became the direct model for the Panthéon in Paris, St. Paul's Cathedral in London, and the US Capitol. The building defined monumental civic and religious design for centuries.</p>
+  </div>
+
+</div>
+
+<footer>
+  &nbsp;Italian Renaissance Architecture &nbsp;·&nbsp; <span style = "color: #c9b48a;" >Perfection Craved from Marble</span>&nbsp;
+</footer>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.img-slide');
+  const thumbEls = document.querySelectorAll('.thumb');
+  const counter = document.getElementById('counter');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    thumbEls[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    thumbEls[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+  function changeSlide(dir) { goToSlide(current + dir); }
+  thumbEls.forEach((t, i) => t.addEventListener('click', () => goToSlide(i)));
+</script>
+</body>
+</html>

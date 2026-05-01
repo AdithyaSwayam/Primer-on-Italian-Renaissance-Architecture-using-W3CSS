@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Villa Rotonda — Italian Renaissance Architecture</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: #f5f0e8;
+      color: #2e2a24;
+      margin: 0;
+    }
+    nav {
+      background-color: #3b2f20;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: #e8d5a3;
+      font-size: 1.1rem;
+      padding: 1rem 0;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 0.2rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      display: block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 1rem 0.85rem;
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #f5f0e8;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(to right, #3b2f20, #5a4230);
+      color: #f5f0e8;
+      padding: 2rem 2rem 1.8rem;
+    }
+    .back-link {
+      display: inline-block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    .back-link:hover { color: #f5f0e8; }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      margin: 0 0 0.3rem;
+      font-weight: 600;
+    }
+    .page-header .meta {
+      color: #c9a84c;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* PAGE WRAP */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+
+    /* ── TOP BLOCK: image left, overview text right ── */
+    .top-block {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Left: image slider */
+    .img-slider {
+      flex: 0 0 480px;
+      background: #2e2418;
+    }
+    .img-main {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      background: #3b2f20;
+    }
+    .img-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .img-slide.active { opacity: 1; }
+    .img-slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+    .img-arrows {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 0.7rem;
+      display: flex;
+      gap: 0.4rem;
+    }
+    .arrow-btn {
+      background: rgba(0,0,0,0.55);
+      color: #e8d5a3;
+      border: none;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .arrow-btn:hover { background: rgba(201,168,76,0.75); }
+    .img-counter {
+      position: absolute;
+      bottom: 0.7rem;
+      right: 0.8rem;
+      background: rgba(0,0,0,0.5);
+      color: #e8d5a3;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      letter-spacing: 0.06em;
+    }
+    .img-thumbs {
+      display: flex;
+      background: #2a1e14;
+      padding: 0.45rem 0.5rem;
+      gap: 0.4rem;
+      overflow-x: auto;
+    }
+    .thumb {
+      width: 68px;
+      height: 46px;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: 2px solid transparent;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .thumb img {
+      width: 68px;
+      height: 46px;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb.active { border-color: #c9a84c; }
+    .thumb:hover  { border-color: #8b6914; }
+
+    /* Right: overview text beside image */
+    .overview-aside {
+      flex: 1;
+      min-width: 0;
+    }
+    .info-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8b6914;
+      margin-bottom: 0.3rem;
+    }
+    .info-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #3b2f20;
+      margin: 0 0 0.6rem;
+    }
+    .content-rule {
+      width: 36px;
+      height: 2px;
+      background: #c9a84c;
+      margin-bottom: 0.9rem;
+    }
+    .info-text {
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: #4a3f30;
+      margin-bottom: 0.7rem;
+    }
+
+    /* ── BELOW: full-width sections ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #d6c9b0;
+      margin: 0.5rem 0 2rem;
+    }
+    .info-section {
+      margin-bottom: 2rem;
+    }
+
+    /* Key facts table */
+    .facts-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .facts-table tr { border-bottom: 1px solid #e0d5c0; }
+    .facts-table td { padding: 0.55rem 0.4rem; color: #4a3f30; }
+    .facts-table td:first-child { color: #8b6914; font-weight: 500; width: 36%; }
+
+    /* ── ARCHITECT SECTION: text left, portrait floated right ── */
+    .architect-section {
+      margin-bottom: 2rem;
+    }
+    .architect-inner {
+      background: #fff;
+      border-left: 3px solid #c9a84c;
+      padding: 1.1rem 1.3rem;
+      overflow: hidden; /* contain the float */
+    }
+    .architect-portrait {
+      float: right;
+      margin: 0 0 0.8rem 1.2rem;
+      width: 110px;
+      height: 130px;
+      overflow: hidden;
+      background: #d6c9b0;
+      border: 1px solid #c9b48a;
+      flex-shrink: 0;
+    }
+    .architect-portrait img {
+      width: 110px;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+    .architect-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #3b2f20;
+      margin: 0 0 0.4rem;
+    }
+    .architect-bio {
+      font-size: 0.9rem;
+      color: #5a4a35;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* Feature tags */
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+    .tag {
+      background: #ede4d0;
+      border: 1px solid #c9b48a;
+      color: #5a4230;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #3b2f20;
+      color: #8b7355;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.82rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .top-block { flex-direction: column; }
+      .img-slider { flex: none; width: 100%; }
+      .img-main { height: 220px; }
+      .img-slide img { height: 220px; }
+      .architect-portrait { width: 90px; height: 110px; }
+      .architect-portrait img { width: 90px; height: 110px; }
+      .nav-links a { font-size: 0.72rem; padding: 0.8rem 0.5rem; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Italian Renaissance Architecture</a>
+    <ul class="nav-links">
+      <li><a href="florence-cathedral.html">Florence Cathedral</a></li>
+      <li><a href="st-peters.html">St. Peter's Basilica</a></li>
+      <li><a href="villa-rotonda.html">Villa Rotonda</a></li>
+      <li><a href="palazzo-medici.html">Palazzo Medici Riccardi</a></li>
+      <li><a href="tempio-malatestiano.html">Tempio Malatestiano</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <a href="index.html" class="back-link">← Back to Overview</a>
+  <h1>Villa Rotonda</h1>
+  <div class="meta">Vicenza, Italy &nbsp;·&nbsp; Completed 1592</div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- TOP BLOCK: image left + overview right -->
+  <div class="top-block">
+
+    <div class="img-slider">
+      <div class="img-main">
+      <div class="img-slide active">
+        <img src="https://fieldmethods.iath.virginia.edu/rotonda/sites/default/files/media/images/VillaCapra_2007_07_18_3.jpg" alt="South portico and facade" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://as1.ftcdn.net/jpg/03/07/90/60/1000_F_307906007_l8VMP00cx4blTaxgkqwFYmZmZa5tGH6s.jpg" alt="Aerial view showing all four porticos" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://www.exploringart.co/wp-content/uploads/2023/04/Villa-rotonda_interno.jpg" alt="Central circular hall under the dome" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/ea/d0/f1/burdeniuc-anatolie.jpg?w=1200&h=-1&s=1" alt="Garden approach view" width="480" height="300">
+      </div>
+
+        <div class="img-arrows">
+          <button class="arrow-btn" onclick="changeSlide(-1)">&#8592;</button>
+          <button class="arrow-btn" onclick="changeSlide(1)">&#8594;</button>
+        </div>
+        <div class="img-counter" id="counter">1 / 4</div>
+      </div>
+      <div class="img-thumbs">
+      <div class="thumb active" onclick="goToSlide(0)"><img src="https://fieldmethods.iath.virginia.edu/rotonda/sites/default/files/media/images/VillaCapra_2007_07_18_3.jpg" alt="South portico and facade" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(1)"><img src="https://as1.ftcdn.net/jpg/03/07/90/60/1000_F_307906007_l8VMP00cx4blTaxgkqwFYmZmZa5tGH6s.jpg" alt="Aerial view showing all four porticos" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(2)"><img src="https://www.exploringart.co/wp-content/uploads/2023/04/Villa-rotonda_interno.jpg" alt="Central circular hall under the dome" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(3)"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/ea/d0/f1/burdeniuc-anatolie.jpg?w=1200&h=-1&s=1" alt="Garden approach view" width="68" height="46"></div>
+      </div>
+    </div>
+
+    <div class="overview-aside">
+      <div class="info-label">Overview</div>
+      <h2 class="info-heading">Perfect Symmetry on a Hillside</h2>
+      <div class="content-rule"></div>
+      <p class="info-text">The Villa Almerico Capra, universally known as La Rotonda, is a Renaissance villa just outside Vicenza in the Veneto region of Italy. Designed by Andrea Palladio around 1565 and completed after his death in 1592, it is perhaps the most intellectually influential building in the history of Western architecture.</p>
+      <p class="info-text">The villa's plan is a perfect square with a circular hall at its centre, capped by a low dome. On each of its four facades, an identical Ionic portico — six columns supporting a triangular pediment — opens views in all four directions, making it equally elegant from any approach.</p>
+    </div>
+
+  </div><!-- end top-block -->
+
+  <hr class="divider">
+
+  <!-- KEY FACTS -->
+  <div class="info-section">
+    <div class="info-label">Key Facts</div>
+    <table class="facts-table w3-table">
+        <tr><td>Location</td><td>Near Vicenza, Veneto, Italy</td></tr>
+        <tr><td>Designed</td><td>c. 1565 by Andrea Palladio</td></tr>
+        <tr><td>Completed</td><td>1592 (by Vincenzo Scamozzi)</td></tr>
+        <tr><td>Plan</td><td>Square with circular central hall</td></tr>
+        <tr><td>Order</td><td>Ionic</td></tr>
+        <tr><td>UNESCO Status</td><td>World Heritage Site (1994)</td></tr>
+        <tr><td>Notable Copies</td><td>Chiswick House, Monticello, US Capitol</td></tr>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECT — text left, portrait floated right -->
+  <div class="architect-section">
+    <div class="info-label">Who Built It</div>
+    <div class="architect-inner">
+      <div class="architect-portrait">
+        <img src="https://api.architectuul.org/media/4c0973b0-ec7c-45e9-98b1-1386183d6281/1312x.jpg" alt="Portrait of Andrea Palladio (1508 – 1580)" width="110" height="130">
+      </div>
+      <div class="architect-name">Andrea Palladio (1508 – 1580)</div>
+      <p class="architect-bio">Palladio designed the Villa Rotonda around 1565 for Paolo Almerico, a retired papal official who wanted a hilltop retreat with views in all directions. Palladio used the villa as a demonstration of his principles — perfect symmetry, classical orders applied rationally, a building integrated with its landscape. He died in 1580 and the villa was completed by his student Vincenzo Scamozzi in 1592.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECTURAL FEATURES -->
+  <div class="info-section">
+    <div class="info-label">Architectural Features</div>
+    <h2 class="info-heading">Four Porticos, One Vision</h2>
+    <div class="content-rule"></div>
+    <p class="info-text">Each of the four identical porticos frames a different view of the Vicenza landscape — the villa functions as a belvedere as much as a residence. The Ionic columns are precisely proportioned per Palladio's own rules. The central circular room opens to the sky through the dome's oculus, serving as the spatial and conceptual heart of the building.</p>
+    <div class="feature-tags"><span class="tag w3-tag">Four Identical Porticos</span><span class="tag w3-tag">Ionic Order</span><span class="tag w3-tag">Square Plan</span><span class="tag w3-tag">Central Dome</span><span class="tag w3-tag">Bilateral Symmetry</span><span class="tag w3-tag">Hilltop Siting</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SIGNIFICANCE -->
+  <div class="info-section">
+    <div class="info-label">Significance</div>
+    <p class="info-text">La Rotonda is arguably the single most copied building in history. Its influence on British Palladianism — Chiswick House, Mereworth Castle — and on American architecture — Jefferson's Monticello, the Virginia State Capitol — is direct and documented. It transformed the idea of what a private house could aspire to be.</p>
+  </div>
+
+</div>
+
+<footer>
+  &nbsp;Italian Renaissance Architecture &nbsp;·&nbsp; <span style = "color: #c9b48a;" >Perfection Craved from Marble</span>&nbsp;
+</footer>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.img-slide');
+  const thumbEls = document.querySelectorAll('.thumb');
+  const counter = document.getElementById('counter');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    thumbEls[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    thumbEls[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+  function changeSlide(dir) { goToSlide(current + dir); }
+  thumbEls.forEach((t, i) => t.addEventListener('click', () => goToSlide(i)));
+</script>
+</body>
+</html>

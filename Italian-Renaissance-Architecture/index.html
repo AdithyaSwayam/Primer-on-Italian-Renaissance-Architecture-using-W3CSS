@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Italian Renaissance Architecture</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: #f5f0e8;
+      color: #2e2a24;
+      margin: 0;
+    }
+ 
+    /* NAV */
+    nav {
+      background-color: #3b2f20;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: #e8d5a3;
+      font-size: 1.1rem;
+      padding: 1rem 0;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0; padding: 0;
+      gap: 0.2rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      display: block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 1rem 0.85rem;
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: #f5f0e8;
+      background: rgba(255,255,255,0.08);
+    }
+ 
+    /* HERO */
+    .hero {
+      background-color: #3b2f20;
+      background-image: linear-gradient(to bottom right, #3b2f20, #5a4230);
+      color: #f5f0e8;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: #c9b48a;
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .hero-rule {
+      width: 60px;
+      height: 2px;
+      background: #c9a84c;
+      margin: 1.5rem auto;
+    }
+ 
+    /* CONTENT SECTIONS */
+    .content-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #3b2f20;
+      margin-bottom: 0.4rem;
+    }
+    .section-rule {
+      width: 48px;
+      height: 2px;
+      background: #c9a84c;
+      margin-bottom: 1.2rem;
+    }
+    .body-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #4a3f30;
+      margin-bottom: 1rem;
+    }
+ 
+    /* SIGNIFICANCE GRID */
+    .sig-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .sig-card {
+      background: #fff;
+      border-left: 3px solid #c9a84c;
+      padding: 1.2rem 1.2rem;
+    }
+    .sig-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #3b2f20;
+      margin-bottom: 0.4rem;
+    }
+    .sig-text {
+      font-size: 0.9rem;
+      color: #5a4a35;
+      line-height: 1.65;
+    }
+ 
+    /* TIMELINE */
+    .timeline {
+      margin-top: 2rem;
+      border-left: 2px solid #c9a84c;
+      padding-left: 1.5rem;
+    }
+    .tl-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -1.95rem;
+      top: 0.35rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #c9a84c;
+      border: 2px solid #f5f0e8;
+    }
+    .tl-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      color: #8b6914;
+      margin-bottom: 0.2rem;
+    }
+    .tl-event {
+      font-size: 0.95rem;
+      color: #3b2f20;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+    .tl-desc {
+      font-size: 0.88rem;
+      color: #5a4a35;
+      line-height: 1.6;
+    }
+ 
+    /* BUILDINGS SECTION */
+    .buildings-bg {
+      background: #ede4d0;
+      padding: 3rem 2rem;
+    }
+    .buildings-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .buildings-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #3b2f20;
+      margin-bottom: 0.4rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .bldg-card {
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .bldg-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    }
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #d6c9b0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b7355;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+    .card-img span {
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    .card-body {
+      padding: 1.1rem 1.2rem 1.3rem;
+    }
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: #3b2f20;
+      margin-bottom: 0.2rem;
+    }
+    .card-year {
+      font-size: 0.78rem;
+      color: #8b6914;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .card-desc {
+      font-size: 0.88rem;
+      color: #5a4a35;
+      line-height: 1.6;
+    }
+    .card-link {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: #8b6914;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+ 
+    /* FOOTER */
+    footer {
+      background: #3b2f20;
+      color: #8b7355;
+      text-align: center;
+      padding: 1.8rem 2rem;
+      font-size: 0.82rem;
+    }
+    footer span { color: #c9b48a; }
+ 
+    @media (max-width: 600px) {
+      .nav-links a { padding: 0.8rem 0.5rem; font-size: 0.75rem; }
+      .hero { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Italian Renaissance Architecture</a>
+    <ul class="nav-links">
+      <li><a href="florence-cathedral.html">Florence Cathedral</a></li>
+      <li><a href="st-peters.html">St. Peter's Basilica</a></li>
+      <li><a href="villa-rotonda.html">Villa Rotonda</a></li>
+      <li><a href="palazzo-medici.html">Palazzo Medici Riccardi</a></li>
+      <li><a href="tempio-malatestiano.html">Tempio Malatestiano</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+<!-- HERO -->
+<div class="hero">
+  <h1>Italian Renaissance Architecture</h1>
+  <div class="hero-rule"></div>
+  <p>A study of the architectural movement that reshaped the built world — from the city-states of 15th century Italy to the foundations of modern design.</p>
+</div>
+ 
+<!-- HISTORY & SIGNIFICANCE -->
+<div class="content-wrap">
+ 
+  <h2 class="section-heading">What is Renaissance Architecture?</h2>
+  <div class="section-rule"></div>
+  <p class="body-text">
+    Renaissance architecture emerged in Florence, Italy, during the early 15th century as a conscious revival of the classical architecture of ancient Rome and Greece. Architects moved away from the ornate, vertical style of Gothic buildings and turned instead to principles of symmetry, proportion, and rational order.
+  </p>
+  <p class="body-text">
+    The movement was deeply connected to the broader intellectual and cultural rebirth — the <em>Rinascimento</em> — that swept through Italian city-states from approximately 1400 to 1600. Wealthy patrons like the Medici family in Florence funded grand building projects that served both as civic prestige and personal legacy.
+  </p>
+ 
+  <!-- Significance Cards (W3 styled) -->
+  <h2 class="section-heading" style="margin-top:2.5rem">Why It Matters</h2>
+  <div class="section-rule"></div>
+  <div class="sig-grid">
+    <div class="sig-card">
+      <div class="sig-title">Rational Proportion</div>
+      <p class="sig-text">Buildings were designed using mathematical ratios drawn from Vitruvius, creating a harmony between structure and human scale that felt natural and balanced.</p>
+    </div>
+    <div class="sig-card">
+      <div class="sig-title">Revival of Classicism</div>
+      <p class="sig-text">Architects studied the ruins of ancient Rome directly, bringing back columns, arches, domes, and pediments — but adapted for contemporary life and function.</p>
+    </div>
+    <div class="sig-card">
+      <div class="sig-title">Engineering Innovation</div>
+      <p class="sig-text">Brunelleschi's dome over Florence Cathedral solved structural problems that had stumped builders for over a century, pioneering new methods still studied today.</p>
+    </div>
+    <div class="sig-card">
+      <div class="sig-title">Lasting Global Influence</div>
+      <p class="sig-text">From the US Capitol to the Panthéon in Paris, Renaissance principles shaped architecture across the world for the next 500 years and continue to do so.</p>
+    </div>
+  </div>
+ 
+  <!-- Historical Timeline -->
+  <h2 class="section-heading" style="margin-top:3rem">Key Historical Moments</h2>
+  <div class="section-rule"></div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1419</div>
+      <div class="tl-event">Ospedale degli Innocenti, Florence</div>
+      <div class="tl-desc">Brunelleschi designs the Foundling Hospital — widely considered the first Renaissance building, introducing arched loggias and classical proportions.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1436</div>
+      <div class="tl-event">Florence Cathedral Dome Completed</div>
+      <div class="tl-desc">After 14 years of construction, Brunelleschi's revolutionary dome over Santa Maria del Fiore is completed — the largest brick dome ever built.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1452</div>
+      <div class="tl-event">De Re Aedificatoria — Leon Battista Alberti</div>
+      <div class="tl-desc">Alberti publishes the first major architectural treatise of the Renaissance, codifying classical principles and providing a theoretical basis for the movement.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1506</div>
+      <div class="tl-event">Foundation of New St. Peter's Basilica</div>
+      <div class="tl-desc">Pope Julius II lays the foundation stone of the new basilica in Rome, beginning a century-long project involving Bramante, Michelangelo, and others.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1570</div>
+      <div class="tl-event">I Quattro Libri — Andrea Palladio</div>
+      <div class="tl-desc">Palladio publishes his influential architectural treatise, spreading Renaissance principles across Europe and eventually to the Americas.</div>
+    </div>
+  </div>
+ 
+</div><!-- end content-wrap -->
+ 
+<!-- BUILDINGS CARDS -->
+<div class="buildings-bg">
+  <div class="buildings-wrap">
+    <h2 class="buildings-heading">Notable Buildings</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">Select a building to explore its history, architecture, and significance in detail.</p>
+ 
+    <div class="cards-grid">
+ 
+      <!-- Card 1 -->
+      <a href="florence-cathedral.html" class="bldg-card w3-card">
+        <div class="card-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg" alt="[ Add image: florence-cathedral.jpg ]" width="100%" height="180">
+        </div>
+        <div class="card-body">
+          <div class="card-name">Florence Cathedral</div>
+          <div class="card-year">Completed 1436 · Florence, Italy</div>
+          <p class="card-desc">The cathedral's octagonal dome, designed by Brunelleschi, remains one of the greatest engineering achievements of the Renaissance.</p>
+          <span class="card-link">View Details →</span>
+        </div>
+      </a>
+ 
+      <!-- Card 2 -->
+      <a href="st-peters.html" class="bldg-card w3-card">
+        <div class="card-img">
+          <img src="https://youlocalrome.com/wp-content/uploads/2019/11/st.-peters-basilica-and-dome-tour.jpg" alt="[ Add image: st-peters.jpg ]" width="100%" height="180">
+        </div>
+        <div class="card-body">
+          <div class="card-name">St. Peter's Basilica</div>
+          <div class="card-year">Completed 1626 · Vatican City</div>
+          <p class="card-desc">The world's largest church, its dome designed by Michelangelo stands as the supreme symbol of Renaissance grandeur and Catholic ambition.</p>
+          <span class="card-link">View Details →</span>
+        </div>
+      </a>
+ 
+      <!-- Card 3 -->
+      <a href="villa-rotonda.html" class="bldg-card w3-card">
+        <div class="card-img">
+          <img src="https://en.wikiarquitectura.com/wp-content/uploads/2024/02/Viilla-Rotonda.webp" alt="[ Add image: villa-rotonda.jpg ]" width="100%" height="180">
+        </div>
+        <div class="card-body">
+          <div class="card-name">Villa Rotonda</div>
+          <div class="card-year">Completed 1592 · Vicenza, Italy</div>
+          <p class="card-desc">Palladio's perfectly symmetrical villa with identical porticos on all four sides has become the most copied building in architectural history.</p>
+          <span class="card-link">View Details →</span>
+        </div>
+      </a>
+ 
+      <!-- Card 4 -->
+      <a href="palazzo-medici.html" class="bldg-card w3-card">
+        <div class="card-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Palazzo_Medici_Riccardi.JPG" alt="[ Add image: palazzo-medici.jpg ]" width="100%" height="180">
+        </div>
+        <div class="card-body">
+          <div class="card-name">Palazzo Medici Riccardi</div>
+          <div class="card-year">Completed 1484 · Florence, Italy</div>
+          <p class="card-desc">Built for the powerful Medici family, this palazzo established the model for Renaissance urban palace design with its rusticated stone facade.</p>
+          <span class="card-link">View Details →</span>
+        </div>
+      </a>
+ 
+      <!-- Card 5 -->
+      <a href="tempio-malatestiano.html" class="bldg-card w3-card">
+        <div class="card-img">
+          <img src="https://ilromagnolo.info/wp-content/uploads/2022/03/Cattedrale-Rimini.jpg" alt="[ Add image: tempio-malatestiano.jpg ]" width="100%" height="180">
+        </div>
+        <div class="card-body">
+          <div class="card-name">Tempio Malatestiano</div>
+          <div class="card-year">Begun 1450 · Rimini, Italy</div>
+          <p class="card-desc">Leon Battista Alberti's classical marble shell over an existing Gothic church — the first deliberate application of Roman temple architecture to a Christian building.</p>
+          <span class="card-link">View Details →</span>
+        </div>
+      </a>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  &nbsp;Italian Renaissance Architecture &nbsp;·&nbsp; <span style = "color: #c9b48a;" >Perfection Craved from Marble</span>&nbsp;
+</footer>
+</body>
+</html>

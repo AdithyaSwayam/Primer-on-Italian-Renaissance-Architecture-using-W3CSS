@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Palazzo Medici Riccardi — Italian Renaissance Architecture</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: #f5f0e8;
+      color: #2e2a24;
+      margin: 0;
+    }
+    nav {
+      background-color: #3b2f20;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: #e8d5a3;
+      font-size: 1.1rem;
+      padding: 1rem 0;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 0.2rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      display: block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 1rem 0.85rem;
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #f5f0e8;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(to right, #3b2f20, #5a4230);
+      color: #f5f0e8;
+      padding: 2rem 2rem 1.8rem;
+    }
+    .back-link {
+      display: inline-block;
+      color: #c9b48a;
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    .back-link:hover { color: #f5f0e8; }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      margin: 0 0 0.3rem;
+      font-weight: 600;
+    }
+    .page-header .meta {
+      color: #c9a84c;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* PAGE WRAP */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+
+    /* ── TOP BLOCK: image left, overview text right ── */
+    .top-block {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Left: image slider */
+    .img-slider {
+      flex: 0 0 480px;
+      background: #2e2418;
+    }
+    .img-main {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      background: #3b2f20;
+    }
+    .img-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .img-slide.active { opacity: 1; }
+    .img-slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+    .img-arrows {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 0.7rem;
+      display: flex;
+      gap: 0.4rem;
+    }
+    .arrow-btn {
+      background: rgba(0,0,0,0.55);
+      color: #e8d5a3;
+      border: none;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .arrow-btn:hover { background: rgba(201,168,76,0.75); }
+    .img-counter {
+      position: absolute;
+      bottom: 0.7rem;
+      right: 0.8rem;
+      background: rgba(0,0,0,0.5);
+      color: #e8d5a3;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      letter-spacing: 0.06em;
+    }
+    .img-thumbs {
+      display: flex;
+      background: #2a1e14;
+      padding: 0.45rem 0.5rem;
+      gap: 0.4rem;
+      overflow-x: auto;
+    }
+    .thumb {
+      width: 68px;
+      height: 46px;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: 2px solid transparent;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .thumb img {
+      width: 68px;
+      height: 46px;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb.active { border-color: #c9a84c; }
+    .thumb:hover  { border-color: #8b6914; }
+
+    /* Right: overview text beside image */
+    .overview-aside {
+      flex: 1;
+      min-width: 0;
+    }
+    .info-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8b6914;
+      margin-bottom: 0.3rem;
+    }
+    .info-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #3b2f20;
+      margin: 0 0 0.6rem;
+    }
+    .content-rule {
+      width: 36px;
+      height: 2px;
+      background: #c9a84c;
+      margin-bottom: 0.9rem;
+    }
+    .info-text {
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: #4a3f30;
+      margin-bottom: 0.7rem;
+    }
+
+    /* ── BELOW: full-width sections ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #d6c9b0;
+      margin: 0.5rem 0 2rem;
+    }
+    .info-section {
+      margin-bottom: 2rem;
+    }
+
+    /* Key facts table */
+    .facts-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .facts-table tr { border-bottom: 1px solid #e0d5c0; }
+    .facts-table td { padding: 0.55rem 0.4rem; color: #4a3f30; }
+    .facts-table td:first-child { color: #8b6914; font-weight: 500; width: 36%; }
+
+    /* ── ARCHITECT SECTION: text left, portrait floated right ── */
+    .architect-section {
+      margin-bottom: 2rem;
+    }
+    .architect-inner {
+      background: #fff;
+      border-left: 3px solid #c9a84c;
+      padding: 1.1rem 1.3rem;
+      overflow: hidden; /* contain the float */
+    }
+    .architect-portrait {
+      float: right;
+      margin: 0 0 0.8rem 1.2rem;
+      width: 110px;
+      height: 130px;
+      overflow: hidden;
+      background: #d6c9b0;
+      border: 1px solid #c9b48a;
+      flex-shrink: 0;
+    }
+    .architect-portrait img {
+      width: 110px;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+    .architect-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #3b2f20;
+      margin: 0 0 0.4rem;
+    }
+    .architect-bio {
+      font-size: 0.9rem;
+      color: #5a4a35;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* Feature tags */
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+    .tag {
+      background: #ede4d0;
+      border: 1px solid #c9b48a;
+      color: #5a4230;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #3b2f20;
+      color: #8b7355;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.82rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .top-block { flex-direction: column; }
+      .img-slider { flex: none; width: 100%; }
+      .img-main { height: 220px; }
+      .img-slide img { height: 220px; }
+      .architect-portrait { width: 90px; height: 110px; }
+      .architect-portrait img { width: 90px; height: 110px; }
+      .nav-links a { font-size: 0.72rem; padding: 0.8rem 0.5rem; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Italian Renaissance Architecture</a>
+    <ul class="nav-links">
+      <li><a href="florence-cathedral.html">Florence Cathedral</a></li>
+      <li><a href="st-peters.html">St. Peter's Basilica</a></li>
+      <li><a href="villa-rotonda.html">Villa Rotonda</a></li>
+      <li><a href="palazzo-medici.html">Palazzo Medici Riccardi</a></li>
+      <li><a href="tempio-malatestiano.html">Tempio Malatestiano</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <a href="index.html" class="back-link">← Back to Overview</a>
+  <h1>Palazzo Medici Riccardi</h1>
+  <div class="meta">Florence, Italy &nbsp;·&nbsp; Completed 1484</div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- TOP BLOCK: image left + overview right -->
+  <div class="top-block">
+
+    <div class="img-slider">
+      <div class="img-main">
+      <div class="img-slide active">
+        <img src="https://www.theflorentine.net/wp-content/uploads/2021/11/Palazzo-Medici-Riccardi5.jpg" alt="Main street facade with rusticated stone" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://as1.ftcdn.net/jpg/03/92/22/28/1000_F_392222818_rJKu79yEH7RJOqKTxYh5JDSmBjYSqmmY.jpg" alt="Interior courtyard with arcade" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://images.squarespace-cdn.com/content/v1/5325adefe4b0c0f6fcfdb257/1621258444578-5WG1HXA5PY9P00LNTF6M/%40+%40+Riccardi-Medici+Palace_facade_Florence.jpg" alt="Corner detail and cornice" width="480" height="300">
+      </div>
+      <div class="img-slide">
+        <img src="https://www.wga.hu/art/g/giordano/3/medici02.jpg" alt="Culture art ceiling decorum" width="480" height="300">
+      </div>
+
+        <div class="img-arrows">
+          <button class="arrow-btn" onclick="changeSlide(-1)">&#8592;</button>
+          <button class="arrow-btn" onclick="changeSlide(1)">&#8594;</button>
+        </div>
+        <div class="img-counter" id="counter">1 / 4</div>
+      </div>
+      <div class="img-thumbs">
+      <div class="thumb active" onclick="goToSlide(0)"><img src="https://www.theflorentine.net/wp-content/uploads/2021/11/Palazzo-Medici-Riccardi5.jpg" alt="Main street facade with rusticated stone" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(1)"><img src="https://as1.ftcdn.net/jpg/03/92/22/28/1000_F_392222818_rJKu79yEH7RJOqKTxYh5JDSmBjYSqmmY.jpg" alt="Interior courtyard with arcade" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(2)"><img src="https://images.squarespace-cdn.com/content/v1/5325adefe4b0c0f6fcfdb257/1621258444578-5WG1HXA5PY9P00LNTF6M/%40+%40+Riccardi-Medici+Palace_facade_Florence.jpg" alt="Corner detail and cornice" width="68" height="46"></div>
+      <div class="thumb" onclick="goToSlide(3)"><img src="https://www.wga.hu/art/g/giordano/3/medici02.jpg" alt="Culture art ceiling decorum" width="68" height="46"></div>
+      </div>
+    </div>
+
+    <div class="overview-aside">
+      <div class="info-label">Overview</div>
+      <h2 class="info-heading">The Model for the Renaissance Palace</h2>
+      <div class="content-rule"></div>
+      <p class="info-text">The Palazzo Medici Riccardi in Florence was built for Cosimo de' Medici, the most powerful banker and political figure in Florence. Designed by Michelozzo di Bartolomeo and begun in 1444, it was the Medici family residence until 1540 and established the typology of the Renaissance urban palace.</p>
+      <p class="info-text">The building is organised around a central courtyard with an open arcade on the ground floor. The facade is notable for its three clearly distinct storeys — each using progressively smoother stonework from rough rusticated blocks at ground level to smooth ashlar at the top — all crowned by a large classical cornice.</p>
+    </div>
+
+  </div><!-- end top-block -->
+
+  <hr class="divider">
+
+  <!-- KEY FACTS -->
+  <div class="info-section">
+    <div class="info-label">Key Facts</div>
+    <table class="facts-table w3-table">
+        <tr><td>Location</td><td>Via Cavour, Florence, Italy</td></tr>
+        <tr><td>Construction</td><td>1444 – 1484</td></tr>
+        <tr><td>Architect</td><td>Michelozzo di Bartolomeo</td></tr>
+        <tr><td>Patron</td><td>Cosimo de' Medici</td></tr>
+        <tr><td>Style</td><td>Early Renaissance</td></tr>
+        <tr><td>Key Feature</td><td>Three-zone rusticated facade</td></tr>
+        <tr><td>Current Use</td><td>Museum and Metropolitan City seat</td></tr>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECT — text left, portrait floated right -->
+  <div class="architect-section">
+    <div class="info-label">Who Built It</div>
+    <div class="architect-inner">
+      <div class="architect-portrait">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Fra_Angelico_074.jpg" alt="Portrait of Michelozzo di Bartolomeo (1396 – 1472)" width="110" height="130">
+      </div>
+      <div class="architect-name">Michelozzo di Bartolomeo (1396 – 1472)</div>
+      <p class="architect-bio">Michelozzo was the Medici family's trusted architect and one of Cosimo de' Medici's closest associates. Cosimo chose him over Brunelleschi for this commission — reportedly because Brunelleschi's design was deemed too grand and would attract envy. Michelozzo was tasked in 1444 with creating a palazzo that projected wealth and authority while remaining within the conventions of a private residence, basing his design on careful study of ancient Roman buildings.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECTURAL FEATURES -->
+  <div class="info-section">
+    <div class="info-label">Architectural Features</div>
+    <h2 class="info-heading">Rustication, Rhythm, and Order</h2>
+    <div class="content-rule"></div>
+    <p class="info-text">The facade's most distinctive feature is its three-tier stone treatment. The ground floor uses large, deeply rough-cut rusticated blocks. The middle floor uses smoother, lightly worked stone. The upper floor is finished in flat ashlar. This gradation from massive to refined became the defining grammar of the Italian palazzo facade.</p>
+    <div class="feature-tags"><span class="tag w3-tag">Three-Zone Rustication</span><span class="tag w3-tag">Biforate Windows</span><span class="tag w3-tag">Arcaded Courtyard</span><span class="tag w3-tag">Classical Cornice</span><span class="tag w3-tag">Ashlar Masonry</span><span class="tag w3-tag">Loggia</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SIGNIFICANCE -->
+  <div class="info-section">
+    <div class="info-label">Significance</div>
+    <p class="info-text">The Palazzo Medici established the formal model for urban palace design followed across Italy for two centuries. Its influence can be seen in the Palazzo Rucellai, the Palazzo Strozzi, and ultimately across European urbanism. It demonstrated how private domestic architecture could express civic authority and cultural aspiration.</p>
+  </div>
+
+</div>
+
+<footer>
+  &nbsp;Italian Renaissance Architecture &nbsp;·&nbsp; <span style = "color: #c9b48a;" >Perfection Craved from Marble</span>&nbsp;
+</footer>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.img-slide');
+  const thumbEls = document.querySelectorAll('.thumb');
+  const counter = document.getElementById('counter');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    thumbEls[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    thumbEls[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+  function changeSlide(dir) { goToSlide(current + dir); }
+  thumbEls.forEach((t, i) => t.addEventListener('click', () => goToSlide(i)));
+</script>
+</body>
+</html>
