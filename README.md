@@ -51,5 +51,6 @@ This project is a static website centered on five major case studies: Florence C
 2. Keep all HTML files in the same root folder so the internal navigation links work correctly.
 3. Open `index.html` in a browser.
 
-Credits
-Built with pure HTML/CSS/JS celebrating "Perfection Craved from Marble" - the six Renaissance monuments that redefined Western architecture forever.
+## Credits
+Built with pure HTML/CSS/JS celebrating "Perfection Craved from Marble".
+The five Renaissance monuments that redefined Western architecture forever.
